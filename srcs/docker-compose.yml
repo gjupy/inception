@@ -1,0 +1,44 @@
+version: '3.8'
+
+networks:
+  inception_net:
+
+services:
+  mariadb:
+    container_name: mariadb
+    image: mariadb
+    build: ./requirements/mariadb
+    networks:
+      - inception_net
+    volumes:
+      - /home/gjupy/data/mariadb:/var/lib/mysql
+    env_file: .env
+    restart: unless-stopped
+
+  wordpress:
+    container_name: wordpress
+    image: wordpress
+    build: ./requirements/wordpress
+    networks:
+      - inception_net
+    volumes:
+      - /home/gjupy/data/wordpress:/var/www/html/wordpress
+    env_file: .env
+    depends_on:
+      - mariadb
+    restart: unless-stopped
+
+  nginx:
+    container_name: nginx
+    image: nginx
+    build: ./requirements/nginx
+    ports:
+      - 443:443
+    networks:
+      - inception_net
+    volumes:
+      - /home/gjupy/data/wordpress:/var/www/html/wordpress
+    depends_on:
+      - wordpress
+      - mariadb
+    restart: unless-stopped
