@@ -13,20 +13,19 @@
 all: run
 
 run:
-	@sudo hostsed add 127.0.0.1 gjupy.42.fr
+	grep -qxF "127.0.0.1 gjupy.42.fr" /etc/hosts || echo "127.0.0.1 gjupy.42.fr" | sudo tee -a /etc/hosts
 	@sudo mkdir -p /home/gjupy/data/mysql
 	@sudo mkdir -p /home/gjupy/data/wordpress
-	@sudo docker compose -f ./srcs/docker-compose.yml up -d
+	@sudo docker compose -f ./srcs/docker-compose.yml up -d --build
 
 fclean:
-	@sudo docker compose -f $(COMPOSE_FILE) down
+	@sudo docker compose -f ./srcs/docker-compose.yml down
 	@if [ -d "/home/gjupy/data/wordpress" ]; then \
-	sudo rm -rf /home/gjupy/data/wordpress/*
+		sudo rm -rf /home/gjupy/data/wordpress/*; \
 	fi;
 	@if [ -d "/home/gjupy/data/mariadb" ]; then \
-	sudo rm -rf /home/gjupy/data/mariadb/* && \
+		sudo rm -rf /home/gjupy/data/mariadb/*; \
 	fi;
-	@sudo docker stop mariadb wordpress nginx
 	@sudo docker container prune
 	@sudo docker image prune
 

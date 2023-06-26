@@ -8,17 +8,21 @@ services:
     container_name: mariadb
     image: mariadb
     build: ./requirements/mariadb
+    ports:
+      - '3306:3306'
     networks:
       - inception_net
     volumes:
       - /home/gjupy/data/mariadb:/var/lib/mysql
     env_file: .env
-    restart: unless-stopped
+    restart: always
 
   wordpress:
     container_name: wordpress
     image: wordpress
     build: ./requirements/wordpress
+    ports:
+      - '9000:9000'
     networks:
       - inception_net
     volumes:
@@ -26,7 +30,7 @@ services:
     env_file: .env
     depends_on:
       - mariadb
-    restart: unless-stopped
+    restart: always
 
   nginx:
     container_name: nginx
@@ -41,4 +45,4 @@ services:
     depends_on:
       - wordpress
       - mariadb
-    restart: unless-stopped
+    restart: always
