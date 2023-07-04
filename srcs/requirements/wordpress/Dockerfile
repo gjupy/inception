@@ -22,7 +22,9 @@ COPY ./conf/www.conf /etc/php/7.4/fpm/pool.d/
 COPY ./conf/config.sh /config.sh
 RUN chmod +x /config.sh
 
-ENTRYPOINT [ "bash", "/config.sh" ]
+# ENTRYPOINT [ "bash", "/config.sh" ]
 
 # run php-fpm7.4 listening for CGI requests on port 9000 in the foreground -F
-CMD ["php-fpm7.4", "-F"]
+# CMD ["php-fpm7.4", "-F"]
+
+CMD ["bash", "/config.sh"]

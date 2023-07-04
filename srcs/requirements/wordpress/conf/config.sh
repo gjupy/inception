@@ -1,4 +1,4 @@
-#!/bin/bash
+# !/bin/bash
 
 mkdir -p /var/www/html/wordpress
 cd /var/www/html/wordpress
@@ -9,10 +9,10 @@ wp --allow-root core download
 
 mv /var/www/html/wordpress/wp-config-sample.php /var/www/html/wordpress/wp-config.php
 
-sed -i -r "s/wordpress_name_here/$DB_NAME/1" wp-config.php
+sed -i -r "s/database_name_here/$DB_NAME/1" wp-config.php
 sed -i -r "s/username_here/$DB_USER/1" wp-config.php
 sed -i -r "s/password_here/$DB_PASSWORD/1" wp-config.php
-sed -i -r "s/localhost/mariadb/1" wp-config.php
+sed -i -r "s/localhost/$DB_HOST/1" wp-config.php
 
 # installs WordPress and sets up the basic configuration for the site.
 # The --url option specifies the URL of the site, --title sets the site's title, --admin_user and --admin_password set the username and password 
@@ -23,4 +23,7 @@ wp --allow-root core install --url=$WP_URL --title=$WP_TITLE --admin_user=$WP_AD
 # The --role option sets the user's role to author, which gives the user the ability to publish and manage their own posts.
 wp --allow-root user create $WP_USER $WP_USER_MAIL --role=author --user_pass=$WP_USER_PASSWORD
 
-exec $@
+# run php-fpm7.4 listening for CGI requests on port 9000 in the foreground -F
+php-fpm7.4 -F
+
+# exec $@
