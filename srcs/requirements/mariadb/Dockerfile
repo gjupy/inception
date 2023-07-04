@@ -1,22 +1,25 @@
-FROM debian:bullseye
+FROM debian:buster
 
 EXPOSE 3306
 
 RUN apt update && apt install -y \
-	mariadb-server mysql-server 
+	mariadb-server
 
 # RUN mkdir -p /run/mysqld \
-# 	&& chown -R mysql:mysql /run/mysqld
+# 	&& chown mysql:mysql run/mysqld
 
 # RUN chown -R mysql:mysql /var/lib/mysql
 
 # RUN chmod -R 700 /var/lib/mysql
 
-RUN rm /etc/mysql/mariadb.conf.d/50-server.cnf
-COPY conf/50-server.cnf /etc/mysql/mariadb.conf.d
+# RUN rm /etc/mysql/mariadb.conf.d/50-server.cnf
+# COPY conf/50-server.cnf /etc/mysql/mariadb.conf.d
 
 COPY ./conf/create_user.sh /create_user.sh
 
+RUN mkdir /var/run/mysqld \
+	&& chown mysql:mysql /var/run/mysqld
+
 ENTRYPOINT ["bash", "/create_user.sh"]
 
-CMD ["mysqld_safe"]
+CMD ["mysqld", "--bind-address=0.0.0.0"]

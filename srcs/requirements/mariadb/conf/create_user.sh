@@ -1,13 +1,13 @@
 #!/bin/bash
 
-# rm /var/lib/mysql/aria_log*
-
-# mysql_install_db
+mysql_install_db
 
 service mysql start
 
-mysql -e "CREATE DATABASE IF NOT EXISTS ${DB_NAME}; GRANT ALL ON ${DB_NAME}.* TO '${DB_USER}'@'%' IDENTIFIED BY '${DB_PASSWORD}'; FLUSH PRIVILEGES;"
+sleep 5
 
-# service mysql stop
+mysql -e "CREATE DATABASE IF NOT EXISTS $DB_NAME; GRANT ALL ON $DB_NAME.* TO '$DB_USER'@'%' IDENTIFIED BY '$DB_PASSWORD'; FLUSH PRIVILEGES;"
+
+service mysql stop
 
 exec $@

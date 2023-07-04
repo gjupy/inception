@@ -3,12 +3,12 @@ FROM debian:bullseye
 EXPOSE 9000
 
 RUN apt update \
-	&& apt install -y \
-	wget \
-	php7.4 \
-	php7.4-fpm \
-	php7.4-mysql \
-	mariadb-client
+		&& apt install -y \
+		wget \
+		php7.4 \
+		php7.4-fpm \
+		php7.4-mysql \
+		mariadb-client
 
 RUN cd /usr/local/bin/ \
 	&& wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \

@@ -26,13 +26,14 @@ fclean:
 	@if [ -d "/home/gjupy/data/mariadb" ]; then \
 		sudo rm -rf /home/gjupy/data/mariadb/*; \
 	fi;
-	@sudo docker container prune
-	@sudo docker image prune
+
+bigclean:
+	@sudo docker system prune
 
 re: fclean all
 
 ls:
-	sudo docker image ls
-	sudo docker ps
+	@sudo docker image ls
+	@sudo docker ps
 
 .PHONY: all, run, fclean, re, ls
