@@ -3,6 +3,18 @@ version: '3.8'
 networks:
   inception_net:
 
+volumes:
+  mariadb_volume:
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/gjupy/data/mariadb
+  wordpress_volume:
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/gjupy/data/wordpress
+
 services:
   mariadb:
     container_name: mariadb
@@ -13,7 +25,7 @@ services:
     networks:
       - inception_net
     volumes:
-      - /home/gjupy/data/mariadb:/var/lib/mysql
+      - mariadb_volume:/var/lib/mysql
     env_file: .env
     restart: always
 
@@ -26,7 +38,7 @@ services:
     networks:
       - inception_net
     volumes:
-      - /home/gjupy/data/wordpress:/var/www/html/wordpress
+      - wordpress_volume:/var/www/html/wordpress
     env_file: .env
     depends_on:
       - mariadb
@@ -41,7 +53,7 @@ services:
     networks:
       - inception_net
     volumes:
-      - /home/gjupy/data/wordpress:/var/www/html/wordpress
+      - wordpress_volume:/var/www/html/wordpress
     depends_on:
       - wordpress
       - mariadb

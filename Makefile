@@ -29,13 +29,13 @@ fclean:
 		sudo rm -rf /home/gjupy/data/mariadb/*; \
 	fi;
 
-bigclean:
+bigclean: fclean
 	@sudo docker system prune
 
 wpbash:
 	@sudo docker exec -it wordpress bash
 
-mdbbash:
+dbbash:
 	@sudo docker exec -it mariadb bash
 
 nginxbash:
