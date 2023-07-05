@@ -11,11 +11,10 @@ RUN apt update \
 		mariadb-client
 
 RUN cd /usr/local/bin/ \
-	&& wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
-	&& chmod +x wp-cli.phar \
-	# rename wp-cli.phar to wp so that we can run wp commands by typing wp
-	&& mv wp-cli.phar wp \
-	&& mkdir -p /run/php
+		&& wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
+		&& chmod +x wp-cli.phar \
+		&& mv wp-cli.phar wp \
+		&& mkdir -p /run/php
 
 COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d/
 
