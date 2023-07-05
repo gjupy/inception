@@ -18,7 +18,7 @@ RUN apt update && apt install -y \
 
 COPY ./conf/create_user.sh /create_user.sh
 
-RUN mkdir /var/run/mysqld \
+RUN mkdir -p /var/run/mysqld \
 	&& chown mysql:mysql /var/run/mysqld
 
 ENTRYPOINT ["bash", "/create_user.sh"]
