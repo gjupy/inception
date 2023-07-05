@@ -1,13 +1,13 @@
-FROM debian:bullseye
+FROM debian:buster
 
 EXPOSE 9000
 
 RUN apt update \
 		&& apt install -y \
 		wget \
-		php7.4 \
-		php7.4-fpm \
-		php7.4-mysql \
+		php7.3 \
+		php7.3-fpm \
+		php7.3-mysql \
 		mariadb-client
 
 RUN cd /usr/local/bin/ \
@@ -17,14 +17,9 @@ RUN cd /usr/local/bin/ \
 	&& mv wp-cli.phar wp \
 	&& mkdir -p /run/php
 
-COPY ./conf/www.conf /etc/php/7.4/fpm/pool.d/
+COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d/
 
 COPY ./conf/config.sh /config.sh
 RUN chmod +x /config.sh
-
-# ENTRYPOINT [ "bash", "/config.sh" ]
-
-# run php-fpm7.4 listening for CGI requests on port 9000 in the foreground -F
-# CMD ["php-fpm7.4", "-F"]
 
 CMD ["bash", "/config.sh"]
