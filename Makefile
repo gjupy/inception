@@ -13,7 +13,7 @@
 all: run
 
 run:
-	grep -qxF "127.0.0.1 gjupy.42.fr" /etc/hosts || echo "127.0.0.1 gjupy.42.fr" | sudo tee -a /etc/hosts
+	@grep -qxF "127.0.0.1 gjupy.42.fr" /etc/hosts || echo "127.0.0.1 gjupy.42.fr" | sudo tee -a /etc/hosts
 	@sudo mkdir -p /home/gjupy/data/mysql
 	@sudo mkdir -p /home/gjupy/data/wordpress
 	@sudo chmod 755 /home/gjupy/data/mariadb
