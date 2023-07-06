@@ -6,7 +6,7 @@
 #    By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/16 16:04:41 by gjupy             #+#    #+#              #
-#    Updated: 2023/06/16 16:05:03 by gjupy            ###   ########.fr        #
+#    Updated: 2023/07/06 15:19:41 by gjupy            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,9 +28,12 @@ fclean:
 	@if [ -d "/home/gjupy/data/mariadb" ]; then \
 		sudo rm -rf /home/gjupy/data/mariadb/*; \
 	fi;
+	@sudo docker image rm -f srcs_nginx
+	@sudo docker image rm -f srcs_wordpress
+	@sudo docker image rm -f srcs_mariadb
 
 bigclean: fclean
-	@sudo docker system prune
+	@sudo docker system prune -a
 
 wpbash:
 	@sudo docker exec -it wordpress bash
