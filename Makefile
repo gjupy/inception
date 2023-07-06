@@ -22,15 +22,8 @@ run:
 
 fclean:
 	@sudo docker compose -f ./srcs/docker-compose.yml down
-	@if [ -d "/home/gjupy/data/wordpress" ]; then \
-		sudo rm -rf /home/gjupy/data/wordpress/*; \
-	fi;
-	@if [ -d "/home/gjupy/data/mariadb" ]; then \
-		sudo rm -rf /home/gjupy/data/mariadb/*; \
-	fi;
-	@sudo docker image rm -f srcs_nginx
-	@sudo docker image rm -f srcs_wordpress
-	@sudo docker image rm -f srcs_mariadb
+	@sudo rm -rf /home/gjupy/data/wordpress/*
+	@sudo rm -rf /home/gjupy/data/mariadb/*
 
 bigclean: fclean
 	@sudo docker system prune -a
