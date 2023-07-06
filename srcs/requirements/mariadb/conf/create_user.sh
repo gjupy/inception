@@ -6,7 +6,7 @@ service mysql start
 
 sleep 5
 
-if [ -d "/var/lib/mysql/$WP_DB" ]
+if [ -d "/var/lib/mysql/$DB_NAME" ]
 then
 	echo "WARNING: Data base exist";
 else
