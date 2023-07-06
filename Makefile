@@ -18,7 +18,7 @@ run:
 	@sudo mkdir -p /home/gjupy/data/wordpress
 	@sudo chmod 755 /home/gjupy/data/mariadb
 	@sudo chmod 755 /home/gjupy/data/wordpress
-	@sudo docker compose -f ./srcs/docker-compose.yml up
+	@sudo docker compose -f ./srcs/docker-compose.yml up --build
 
 fclean:
 	@sudo docker compose -f ./srcs/docker-compose.yml down
