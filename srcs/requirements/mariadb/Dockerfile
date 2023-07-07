@@ -3,8 +3,7 @@ FROM debian:buster
 EXPOSE 3306
 
 RUN apt update && apt install -y \
-	mariadb-server \
-	mariadb-client
+	mariadb-server
 
 RUN mkdir -p /var/run/mysqld \
 	&& chown mysql:mysql /var/run/mysqld
